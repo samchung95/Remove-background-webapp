@@ -1,13 +1,11 @@
-from rembg import remove, new_session
-from PIL import Image
+from flask import Flask
+from remover import Remover
 
-input_path = 'photo/test.jpeg'
-output_path = 'photo/output1.png'
+app = Flask(__name__)
 
+@app.route('/')
+def hello_world():
+    return 'Hello, World!'
 
-input = Image.open(input_path)
-sess = new_session("isnet-general-use")
-output = remove(input,session=sess)
-
-
-output.save(output_path)
+if __name__ == '__main__':
+    app.run(host="0.0.0.0", port=5001)
