@@ -9,8 +9,6 @@ This section lists any major frameworks/libraries used to develop SafeMe.
 
 ## Technologies
 
-## Technologies
-
 | Frontend | Backend | API Gateway | Containerization |
 | --- | --- | --- | --- |
 | ![HTML](https://img.shields.io/badge/HTML5-E34F26.svg?style=for-the-badge&logo=HTML5&logoColor=white) | ![Python](https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=Python&logoColor=white) | ![Nginx](https://img.shields.io/badge/Nginx-269539.svg?style=for-the-badge&logo=Nginx&logoColor=white) | ![Docker](https://img.shields.io/badge/Docker-2496ED.svg?style=for-the-badge&logo=Docker&logoColor=white) |
