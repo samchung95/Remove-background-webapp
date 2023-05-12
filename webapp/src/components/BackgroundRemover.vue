@@ -16,14 +16,24 @@
     </div>
     <div class="col-lg-6">
       <span>
-        <h4>Files converted</h4>
+        <h3>Files converted</h3>
       </span>
       <br>
       <div class="col">
-        <ConvertResult 
-        v-for="(obj, index) in converted_photos" 
-        :key="index" 
-        :src="obj.url" />
+        
+        <div class="row" v-for="(obj, index) in converted_photos" :key="index">
+          <h4>{{ obj.name }}</h4>
+          <br>
+          <span>
+            <button type="button" class="btn btn-primary my-2" @click="downloadImage(obj.url, obj.name)">Download
+              image</button>
+          </span>
+          <ConvertResult :src="obj.url" />
+        </div>
+
+        <div v-if="loading" class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
       </div>
     </div>
   </div>
@@ -43,9 +53,10 @@ export default {
       dragging: false,
       imageUrl: "",
       imageSrc: "",
-      converted_photos:[
+      converted_photos: [
 
-      ]
+      ],
+      loading: false
     };
   },
   methods: {
@@ -75,7 +86,7 @@ export default {
     async handleImageFile(file) {
       // Handle the dropped image file here
       console.log("Image file:", file.name);
-
+      this.loading = true
       // Example: Read the image file as a data URL
       const reader = new FileReader();
       const formData = new FormData();
@@ -92,20 +103,20 @@ export default {
           let len = this.converted_photos.length
           let imageSrc = URL.createObjectURL(blob);
           this.converted_photos.push({
-            "name":"image"+ String(len)+".png",
-            "url":imageSrc
+            "name": "image" + String(len + 1) + ".png",
+            "url": imageSrc
           })
-          
         } else {
           console.error('Failed to fetch image from server');
         }
 
       } catch (error) {
         console.error('Error:', error);
-      }
+      } 
 
       reader.onload = (event) => {
         console.log("Image data URL:", event.target.result);
+        this.loading = false
       };
       reader.readAsDataURL(file);
     },
@@ -175,6 +186,16 @@ export default {
 
     isValidImageUrl(url) {
       return url.match(/\.(jpeg|jpg|gif|png)$/) != null;
+    },
+
+    downloadImage(url, name) {
+      // Create an anchor element
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = name; // Specify the filename for the downloaded image
+
+      // Programmatically trigger the download
+      link.click();
     },
   },
 }

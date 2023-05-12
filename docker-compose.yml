@@ -1,20 +1,21 @@
 version: '3'
 services:
-  vue:
-    container_name: vue
-    build:
-      context: ./webapp
-      dockerfile: Dockerfile
-    volumes:
-      - ./webapp:/app
-      - /webapp/node_modules
-    ports:
-      - 8080:80
-    depends_on:
-      - flask
+  # vue:
+  #   container_name: vue
+  #   build:
+  #     context: ./webapp
+  #     dockerfile: Dockerfile
+  #   volumes:
+  #     - ./webapp:/app
+  #     - /webapp/node_modules
+  #   ports:
+  #     - 8080:80
+  #   depends_on:
+  #     - flask
 
   flask:
     container_name: flask
+    restart: on-failure
     build:
       context: ./backend
       dockerfile: Dockerfile
