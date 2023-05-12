@@ -1,5 +1,5 @@
 <template>
-    <img alt="Image from Flask server" class="convphoto"/>
+    <img alt="Image from Flask server" class="convphoto mb-2"/>
 </template>
 
 <script>

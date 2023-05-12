@@ -81,7 +81,7 @@ export default {
       const formData = new FormData();
       formData.append('image', file);
       try {
-        const response = await fetch('http://localhost:5001/upload', {
+        const response = await fetch('http://host.docker.internal:5001/upload', {
           method: 'POST',
           body: formData,
         });

@@ -16,7 +16,7 @@ class Remover:
         pass
 
     def remove_bg(b:bytes):
-        sess = new_session("isnet-general-use")
+        sess = new_session("u2net")
         image = Image.open(b)
         output = remove(image,session=sess)
         # output = output.convert('RGBA')
