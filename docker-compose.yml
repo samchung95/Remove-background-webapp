@@ -21,15 +21,14 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./backend:/app
+    expose:
+      - "5001"
+  nginx_proxy:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
     ports:
-      - 5001:5001
-  # nginx:
-  #   build: ./nginx
-  #   volumes:
-  #     - ./nginx:/etc/nginx/conf.d
-  #     - ./certs:/etc/nginx/certs
-  #   ports:
-  #     - "80:80"
-  #     - "443:443"
-  #   depends_on:
-  #     - flask
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - flask
