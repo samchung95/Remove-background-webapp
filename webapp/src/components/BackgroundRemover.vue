@@ -92,7 +92,7 @@ export default {
       const formData = new FormData();
       formData.append('image', file);
       try {
-        const response = await fetch('http://192.168.1.1:5001/upload', {
+        const response = await fetch('https://server.polymathlearning.app/upload', {
           method: 'POST',
           body: formData,
         });
