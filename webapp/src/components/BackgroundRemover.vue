@@ -14,13 +14,13 @@
 
       </div>
     </div>
-    <div class="col-lg-6">
+    <div class="col-lg-6 d-flex flex-column justify-content-center converted-area">
       <span>
         <h3>Files converted</h3>
       </span>
       <br>
-      <div class="col">
-        
+      <div class="col overflow-auto" ref="results" @resize="handleResize">
+
         <div class="row" v-for="(obj, index) in converted_photos" :key="index">
           <h4>{{ obj.name }}</h4>
           <br>
@@ -32,8 +32,8 @@
         </div>
 
         <div v-if="loading" class="spinner-border text-primary" role="status">
-            <span class="visually-hidden">Loading...</span>
-          </div>
+          <span class="visually-hidden">Loading...</span>
+        </div>
       </div>
     </div>
   </div>
@@ -56,7 +56,8 @@ export default {
       converted_photos: [
 
       ],
-      loading: false
+      loading: false,
+      donate_url: "https://dashboard.stripe.com/payment-links/plink_1N915UA59UOU3oHiUoiafcpB"
     };
   },
   methods: {
@@ -112,13 +113,22 @@ export default {
 
       } catch (error) {
         console.error('Error:', error);
-      } 
+      }
 
       reader.onload = (event) => {
         console.log("Image data URL:", event.target.result);
         this.loading = false
+        this.scrollDown()
       };
       reader.readAsDataURL(file);
+    },
+    scrollDown() {
+      this.$nextTick(() => {
+        const element = this.$refs.results;
+        console.log(element.scrollHeight)
+        element.scrollTop = element.scrollHeight;
+      })
+
     },
     uploadImages() {
       this.$refs.imageUpload.click();
@@ -210,5 +220,9 @@ export default {
 
 .dragging {
   background-color: #f0f0f0;
+}
+
+.converted-area {
+  max-height: 80vh;
 }
 </style>
