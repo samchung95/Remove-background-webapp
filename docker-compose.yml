@@ -12,10 +12,11 @@ services:
       - 8080:80
     depends_on:
       - flask
+    restart: unless-stopped
 
   flask:
     container_name: flask
-    restart: on-failure
+    restart: unless-stopped
     build:
       context: ./backend
       dockerfile: Dockerfile
@@ -23,6 +24,7 @@ services:
       - ./backend:/app
     expose:
       - "5001"
+      
   nginx_proxy:
     build:
       context: ./nginx
@@ -32,3 +34,4 @@ services:
       - "443:443"
     depends_on:
       - flask
+    restart: unless-stopped
